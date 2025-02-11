@@ -1,3 +1,8 @@
+//===============================
+// bu Faylda file header yaratdim
+// negaligini hozircha bilmayaman
+//===============================
+
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
