@@ -10,10 +10,14 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Shinam.Api.Brokers.Storages
 {
-    public partial class StorageBroker : EFxceptionsContext
+    public partial class StorageBroker : EFxceptionsContext,IstorageBroker
     {
-        // IConfiguration ga bog'liq bo'lmaslik uchun konstruktorni olib tashlaymiz
-        public StorageBroker() { }
+        private readonly IConfiguration configuration;
+        public StorageBroker(IConfiguration configuration) 
+        {
+            this.configuration = configuration;
+            this.Database.Migrate();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
