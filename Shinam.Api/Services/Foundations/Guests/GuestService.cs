@@ -17,8 +17,9 @@ namespace Shinam.Api.Services.Foundations.Guests
 
         public ValueTask<Guest> AddGuestAsync(Guest guest) =>
 
-            throw new NotImplementedException();
-            //this.storageBroker.InsertGuestAsync(guest);
+            this.storageBroker.InsertGuestAsync(guest);
+            //throw new NotImplementedException();
+            
         
     }
 }
