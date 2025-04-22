@@ -3,11 +3,9 @@
 // negaligini hozircha bilmayaman
 //===============================
 
-namespace Shinam.Api.Tests.Unit
+namespace Shinam.Api.Brokers.Storages
 {
-    public class DeleteMe
+    public partial interface IStorageBroker
     {
-        [Fact]
-        public void ShouldBeTrue() => Assert.True(true);
     }
 }
