@@ -14,6 +14,7 @@ namespace Shinam.Api.Tests.Unit.Services.Foundations.Guests
         public async Task ShouldThrowValidationExceptionOnAddIfGuestIsNullAndLogItAsync()
         {
             // given 
+
             Guest nullGuest = null;
             var nullGuestException = new NullGuestException();
 
@@ -24,9 +25,8 @@ namespace Shinam.Api.Tests.Unit.Services.Foundations.Guests
 
             ValueTask<Guest> AddGuestTask =
                  this.guestService.AddGuestAsync(nullGuest);
-            await Assert.ThrowsAsync<GuestValidationException>(() => AddGuestTask.AsTask());
-
             //than
+            await Assert.ThrowsAsync<GuestValidationException>(() => AddGuestTask.AsTask());
         }
     }
 }
