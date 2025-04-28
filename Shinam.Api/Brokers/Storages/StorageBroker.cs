@@ -12,16 +12,26 @@ using Shinam.Api.Models.Foundation.Guests;
 
 namespace Shinam.Api.Brokers.Storages
 {
+<<<<<<< HEAD
     public partial class StorageBroker : EFxceptionsContext, IStorageBroker
     {
       
         private readonly IConfiguration configuration;
         public StorageBroker(IConfiguration configuration)
+=======
+    public partial class StorageBroker : EFxceptionsContext,IstorageBroker
+    {
+        private readonly IConfiguration configuration;
+        public StorageBroker(IConfiguration configuration) 
+>>>>>>> main
         {
             this.configuration = configuration;
             this.Database.Migrate();
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
