@@ -44,3 +44,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run(); 
+
+
+
+//  shu qismida brench hatolarni hal qilish uchun matin yozildi bu esa bilib olish uchun yordam beradi
