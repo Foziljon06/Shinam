@@ -3,35 +3,24 @@
 // negaligini hozircha bilmayaman
 //===============================
 
-
 using EFxceptions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using Shinam.Api.Models.Foundation.Guests;
+
 
 namespace Shinam.Api.Brokers.Storages
 {
-<<<<<<< HEAD
-    public partial class StorageBroker : EFxceptionsContext, IStorageBroker
-    {
-      
-        private readonly IConfiguration configuration;
-        public StorageBroker(IConfiguration configuration)
-=======
-    public partial class StorageBroker : EFxceptionsContext,IstorageBroker
+    public partial class StorageBroker : EFxceptionsContext,IStorageBroker
     {
         private readonly IConfiguration configuration;
         public StorageBroker(IConfiguration configuration) 
->>>>>>> main
+
         {
             this.configuration = configuration;
             this.Database.Migrate();
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> main
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,6 +35,11 @@ namespace Shinam.Api.Brokers.Storages
         public override void Dispose()
         {
             base.Dispose(); // Asosiy Dispose metodini chaqirish
+        }
+
+        public ValueTask<Guest> InsertGuestAsync(Guest guest)
+        {
+            throw new NotImplementedException();
         }
 
         //internal void InsertGuestAsync(Guest guest)
