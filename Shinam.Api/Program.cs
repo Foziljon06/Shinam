@@ -5,6 +5,7 @@
 using Shinam.Api.Brokers.Storages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Shinam.Api.Brokers.Loggings;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<StorageBroker>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IStorageBroker, StorageBroker>();
+builder.Services.AddTransient<ILoggingBroker, LoggingBroker>();
 // IStorage brokerni qo`shyapman
 var app = builder.Build();
 
