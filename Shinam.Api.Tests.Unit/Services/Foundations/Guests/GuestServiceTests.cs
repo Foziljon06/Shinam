@@ -4,25 +4,32 @@
 //===============================
 
 
+using System.Linq.Expressions;
 using Moq;
+using Shinam.Api.Brokers.Loggings;
 using Shinam.Api.Brokers.Storages;
 using Shinam.Api.Models.Foundation.Guests;
 using Shinam.Api.Services.Foundations.Guests;
 using Tynamix.ObjectFiller;
+using Xeptions;
 
 namespace Shinam.Api.Tests.Unit.Services.Foundations.Guests
 {
     public partial class GuestServiceTests
     {
         private readonly Mock<IStorageBroker> storageBrokerMock;
+        private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly IGuestService guestService;
 
         public GuestServiceTests()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
+            this.loggingBrokerMock = new Mock<ILoggingBroker>();
 
-            this.guestService = 
-                new GuestService(storageBroker: this.storageBrokerMock.Object);
+            this.guestService =
+                new GuestService(
+                    storageBroker: this.storageBrokerMock.Object,
+                    loggingBroker: this.loggingBrokerMock.Object);
         }
 
         private static Guest CreateRandomGuest() =>
@@ -30,6 +37,14 @@ namespace Shinam.Api.Tests.Unit.Services.Foundations.Guests
 
         private static DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
+
+        private Expression<Func<Xeption,bool>> SameExceptionAs(Xeption expectedException)
+        {
+            return actualException => actualException.Message == expectedException.Message
+                && actualException.InnerException.Message == expectedException.InnerException.Message
+                && (actualException.InnerException as Xeption).DataEquals(expectedException.Data);
+        }
+
 
        private static Filler<Guest> CreateGuestFiller(DateTimeOffset date)
         {
