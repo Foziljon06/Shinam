@@ -2,7 +2,7 @@
 // bu Faylda file header yaratdim
 // negaligini hozircha bilmayaman
 //===============================
-using System.Threading.Tasks;
+
 using Shinam.Api.Brokers.Loggings;
 using Shinam.Api.Brokers.Storages;
 using Shinam.Api.Models.Foundation.Guests;
@@ -10,7 +10,7 @@ using Shinam.Api.Models.Foundation.Guests.Exceptions;
 
 namespace Shinam.Api.Services.Foundations.Guests
 {
-    public class GuestService : IGuestService
+    public partial class GuestService : IGuestService
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
@@ -23,34 +23,19 @@ namespace Shinam.Api.Services.Foundations.Guests
             this.loggingBroker = loggingBroker;
         }
 
-        public async ValueTask<Guest> AddGuestAsync(Guest guest)
+        // Exception Noise Cancellation // Xatoliklarni shovqinini bartaraf etish
+        public ValueTask<Guest> AddGuestAsync(Guest guest) =>
+            TryCatch(async () =>
         {
-            try
-            {
-                if (guest is null)
-                {
-                    throw new NullGuestException();
-                }
+            ValidateGuestNotNull(guest);
 
-                return await this.storageBroker.InsertGuestAsync(guest);
-            }
-            catch (NullGuestException nullguestException)
-            {
-                var guestValidationException = new GuestValidationException(nullguestException);
-
-                this.loggingBroker.LogError(guestValidationException);
-
-                throw guestValidationException;
-            }
-
-            //this.loggingBroker.LogError(new Exception("something"));
-            //this.storageBroker.InsertGuestAsync(guest);
-            //throw new NotImplementedException();
-
-        }
-
-
-
-
+            return await this.storageBroker.InsertGuestAsync(guest);
+        });
     }
 }
+
+
+
+//this.loggingBroker.LogError(new Exception("something"));
+//this.storageBroker.InsertGuestAsync(guest);
+//throw new NotImplementedException();
